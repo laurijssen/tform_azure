@@ -4,3 +4,5 @@
 mykey
 mykey.pub
 *.backup
+.terraform.tfstate.lock.info
+

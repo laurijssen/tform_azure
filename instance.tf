@@ -1,8 +1,8 @@
-resource "azurerm_virtual_machine" "demo-instance" {
+resource "azurerm_virtual_machine" "geofriends-vm" {
   name                  = "${var.prefix}-vm"
   location              = var.location
-  resource_group_name   = azurerm_resource_group.demo.name
-  network_interface_ids = [azurerm_network_interface.demo-instance.id]
+  resource_group_name   = azurerm_resource_group.geofriends.name
+  network_interface_ids = [azurerm_network_interface.geofriends-instance.id]
   vm_size               = "Standard_A1_v2"
 
   delete_os_disk_on_termination    = true
@@ -23,35 +23,35 @@ resource "azurerm_virtual_machine" "demo-instance" {
   }
 
   os_profile {
-    computer_name  = "demo-instance"
-    admin_username = "demo"
+    computer_name  = "geofriends"
+    admin_username = "laurijssen"
   }
 
   os_profile_linux_config {
     disable_password_authentication = true
     ssh_keys {
       key_data = file("mykey.pub")
-      path     = "/home/demo/.ssh/authorized_keys"
+      path     = "/home/laurijssen/.ssh/authorized_keys"
     }
   }
 }
 
-resource "azurerm_network_interface" "demo-instance" {
+resource "azurerm_network_interface" "geofriends-instance" {
   name                = "${var.prefix}-instance1"
   location            = var.location
-  resource_group_name = azurerm_resource_group.demo.name
+  resource_group_name = azurerm_resource_group.geofriends.name
 
   ip_configuration {
     name                          = "instance1"
     subnet_id                     = azurerm_subnet.demo-internal-1.id
     private_ip_address_allocation = "Dynamic"
-    public_ip_address_id          = azurerm_public_ip.demo-instance.id
+    public_ip_address_id          = azurerm_public_ip.geofriends-instance.id
   }
 }
 
-resource "azurerm_public_ip" "demo-instance" {
+resource "azurerm_public_ip" "geofriends-instance" {
   name                = "instance1-public-ip"
   location            = var.location
-  resource_group_name = azurerm_resource_group.demo.name
+  resource_group_name = azurerm_resource_group.geofriends.name
   allocation_method   = "Dynamic"
 }

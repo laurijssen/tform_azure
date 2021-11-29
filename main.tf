@@ -10,8 +10,3 @@ terraform {
 provider "azurerm" {
   features {}
 }
-
-resource "azurerm_resource_group" "demo" {
-  name     = "first-steps-demo"
-  location = var.location
-}
