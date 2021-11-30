@@ -37,13 +37,13 @@ resource "azurerm_virtual_machine" "geofriends-vm" {
 }
 
 resource "azurerm_network_interface" "geofriends-instance" {
-  name                = "${var.prefix}-instance1"
-  location            = var.location
-  resource_group_name = azurerm_resource_group.geofriends.name
+  name                      = "${var.prefix}-instance1"
+  location                  = var.location
+  resource_group_name       = azurerm_resource_group.geofriends.name
 
   ip_configuration {
     name                          = "instance1"
-    subnet_id                     = azurerm_subnet.demo-internal-1.id
+    subnet_id                     = azurerm_subnet.subnet-internal-1.id
     private_ip_address_allocation = "Dynamic"
     public_ip_address_id          = azurerm_public_ip.geofriends-instance.id
   }
@@ -54,4 +54,10 @@ resource "azurerm_public_ip" "geofriends-instance" {
   location            = var.location
   resource_group_name = azurerm_resource_group.geofriends.name
   allocation_method   = "Dynamic"
+}
+
+resource "azurerm_application_security_group" "geo-appsec-group" {
+  name = "internet-facing"
+  location = var.location
+  resource_group_name = azurerm_resource_group.geofriends.name
 }
