@@ -31,7 +31,7 @@ resource "azurerm_network_security_group" "allow-ssh" {
 }
 
 resource "azurerm_network_security_group" "internal-facing" {
-  name                = "${var.prefix}-internal-facing"
+  name                = "internal-facing"
   location            = var.location
   resource_group_name = azurerm_resource_group.geofriends.name
 
@@ -60,6 +60,6 @@ resource "azurerm_network_security_group" "internal-facing" {
 }
 
 resource "azurerm_subnet_network_security_group_association" "sec-group-association-1" {
-  subnet_id                 = azurerm_subnet.subnet-internal-1.id
-  network_security_group_id = azurerm_network_security_group.allow-ssh.id
+   subnet_id                 = azurerm_subnet.subnet-internal-1.id
+   network_security_group_id = azurerm_network_security_group.allow-ssh.id
 }
