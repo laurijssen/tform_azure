@@ -12,3 +12,8 @@ variable "ssh-source-address" {
   type    = string
   default = "*"
 }
+
+variable "ssh-destination-address" {
+  type    = string
+  default = "*"
+}
