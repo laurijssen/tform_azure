@@ -74,6 +74,39 @@ resource "azurerm_virtual_machine" "geofriends-vm-2" {
   }
 }
 
+resource "azurerm_dns_zone" "dns_zone" {
+   name                = "geocachex.com"
+   resource_group_name = azurerm_resource_group.geofriends.name
+
+   tags = {
+         Site = "geocachex.com"
+     }
+}
+
+resource "azurerm_dns_a_record" "dns_a_record" {
+  name                = "@"
+  zone_name           = azurerm_dns_zone.dns_zone.name
+  resource_group_name = azurerm_resource_group.geofriends.name
+  ttl                 = 3600
+  target_resource_id  = azurerm_public_ip.geofriends-instance-1.id
+}
+
+resource "azurerm_dns_a_record" "dns_www_a_record" {
+  name                = "www"
+  zone_name           = azurerm_dns_zone.dns_zone.name
+  resource_group_name = azurerm_resource_group.geofriends.name
+  ttl                 = 3600
+  target_resource_id  = azurerm_public_ip.geofriends-instance-1.id
+}
+
+resource "azurerm_dns_cname_record" "dns_api_cname_record" {
+  name                = "api"
+  zone_name           = azurerm_dns_zone.dns_zone.name
+  resource_group_name = azurerm_resource_group.geofriends.name
+  ttl                 = 3600
+  record              = azurerm_dns_zone.dns_zone.name
+}
+
 resource "azurerm_network_interface" "geofriends-instance" {
   name                = "${var.prefix}-instance1"
   location            = var.location
