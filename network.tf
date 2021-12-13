@@ -60,6 +60,6 @@ resource "azurerm_network_security_group" "internal-facing" {
 }
 
 resource "azurerm_subnet_network_security_group_association" "sec-group-association-1" {
-   subnet_id                 = azurerm_subnet.subnet-internal-1.id
-   network_security_group_id = azurerm_network_security_group.allow-ssh.id
+  subnet_id                 = azurerm_subnet.subnet-internal-1.id
+  network_security_group_id = azurerm_network_security_group.allow-ssh.id
 }

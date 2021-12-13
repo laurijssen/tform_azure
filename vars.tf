@@ -17,3 +17,8 @@ variable "ssh-destination-address" {
   type    = string
   default = "*"
 }
+
+variable "failover_location" {
+  type    = string
+  default = ""
+}
