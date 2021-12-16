@@ -7,7 +7,7 @@ resource "random_string" "random-name" {
 }
 
 resource "azurerm_cosmosdb_account" "db" {
-  name                = "training-cosmos-db-${random_string.random-name.result}"
+  name                = "geofriends-db-${random_string.random-name.result}"
   location            = azurerm_resource_group.geofriends.location
   resource_group_name = azurerm_resource_group.geofriends.name
   offer_type          = "Standard"
@@ -48,13 +48,13 @@ resource "azurerm_cosmosdb_account" "db" {
 }
 
 resource "azurerm_cosmosdb_mongo_database" "mongo-example-database" {
-  name                = "training-cosmos-mongo-db"
+  name                = "geofriends-db"
   resource_group_name = azurerm_resource_group.geofriends.name
   account_name        = azurerm_cosmosdb_account.db.name
 }
 
 resource "azurerm_cosmosdb_mongo_collection" "mongo-example-collection" {
-  name                = "training-cosmos-mongo-db"
+  name                = "geofriends-db"
   resource_group_name = azurerm_resource_group.geofriends.name
   account_name        = azurerm_cosmosdb_account.db.name
   database_name       = azurerm_cosmosdb_mongo_database.mongo-example-database.name
