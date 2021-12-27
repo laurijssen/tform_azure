@@ -10,6 +10,7 @@ resource "azurerm_subnet" "subnet-internal-1" {
   resource_group_name  = azurerm_resource_group.geofriends.name
   virtual_network_name = azurerm_virtual_network.vn.name
   address_prefixes     = ["10.0.0.0/24"]
+  service_endpoints    = ["Microsoft.AzureCosmosDB"]
 }
 
 resource "azurerm_network_security_group" "allow-ssh" {

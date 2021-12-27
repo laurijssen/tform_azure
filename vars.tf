@@ -20,5 +20,6 @@ variable "ssh-destination-address" {
 
 variable "failover_location" {
   type    = string
-  default = ""
+  default = "swedencentral"
 }
+

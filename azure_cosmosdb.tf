@@ -19,6 +19,7 @@ resource "azurerm_cosmosdb_account" "db" {
 
   virtual_network_rule {
     id = azurerm_subnet.subnet-internal-1.id
+    #ignore_missing_vnet_service_endpoint = true
   }
 
   capabilities {
@@ -36,6 +37,7 @@ resource "azurerm_cosmosdb_account" "db" {
   }
 
   geo_location {
+    prefix            = "cosmosdb-s${random_string.random-name.result}-failover"
     location          = var.failover_location
     failover_priority = 1
   }
@@ -47,28 +49,34 @@ resource "azurerm_cosmosdb_account" "db" {
   }
 }
 
-resource "azurerm_cosmosdb_mongo_database" "mongo-example-database" {
+# resource azurerm_cosmosdb_virtual_network_rule "test" {
+#     name = "cosmosdb-vnet-rule"
+#     resource_group_name = azurerm_resource_group.geofriends.name
+
+# }
+
+resource "azurerm_cosmosdb_mongo_database" "mongodb" {
   name                = "geofriends-db"
   resource_group_name = azurerm_resource_group.geofriends.name
   account_name        = azurerm_cosmosdb_account.db.name
 }
 
-resource "azurerm_cosmosdb_mongo_collection" "mongo-example-collection" {
-  name                = "geofriends-db"
+resource "azurerm_cosmosdb_mongo_collection" "locations" {
+  name                = "locs"
   resource_group_name = azurerm_resource_group.geofriends.name
   account_name        = azurerm_cosmosdb_account.db.name
-  database_name       = azurerm_cosmosdb_mongo_database.mongo-example-database.name
+  database_name       = azurerm_cosmosdb_mongo_database.mongodb.name
 
   default_ttl_seconds = "777"
   shard_key           = "uniqueKey"
 
   index {
-    keys    = ["aKey"]
+    keys   = ["nonUniqueKey"]
     unique = false
   }
 
   index {
-    keys    = ["uniqueKey"]
+    keys   = ["uniqueKey"]
     unique = true
   }
 }

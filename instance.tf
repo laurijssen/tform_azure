@@ -120,18 +120,18 @@ resource "azurerm_network_interface" "geofriends-instance" {
   }
 }
 
-resource "azurerm_network_interface" "geofriends-instance-2" {
-  name                = "${var.prefix}-instance2"
-  location            = var.location
-  resource_group_name = azurerm_resource_group.geofriends.name
+# resource "azurerm_network_interface" "geofriends-instance-2" {
+#   name                = "${var.prefix}-instance2"
+#   location            = var.location
+#   resource_group_name = azurerm_resource_group.geofriends.name
 
-  ip_configuration {
-    name                          = "instance2"
-    subnet_id                     = azurerm_subnet.subnet-internal-1.id
-    private_ip_address_allocation = "Dynamic"
-    public_ip_address_id          = azurerm_public_ip.geofriends-instance-2.id
-  }
-}
+#   ip_configuration {
+#     name                          = "instance2"
+#     subnet_id                     = azurerm_subnet.subnet-internal-1.id
+#     private_ip_address_allocation = "Dynamic"
+#     public_ip_address_id          = azurerm_public_ip.geofriends-instance-2.id
+#   }
+# }
 resource "azurerm_public_ip" "geofriends-instance-1" {
   name                = "instance1-public-ip"
   location            = var.location
@@ -139,12 +139,12 @@ resource "azurerm_public_ip" "geofriends-instance-1" {
   allocation_method   = "Dynamic"
 }
 
-resource "azurerm_public_ip" "geofriends-instance-2" {
-  name                = "instance2-public-ip"
-  location            = var.location
-  resource_group_name = azurerm_resource_group.geofriends.name
-  allocation_method   = "Dynamic"
-}
+# resource "azurerm_public_ip" "geofriends-instance-2" {
+#   name                = "instance2-public-ip"
+#   location            = var.location
+#   resource_group_name = azurerm_resource_group.geofriends.name
+#   allocation_method   = "Dynamic"
+# }
 
 resource "azurerm_application_security_group" "geo-appsec-group" {
   name                = "internet-facing"
