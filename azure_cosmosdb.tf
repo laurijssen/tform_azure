@@ -67,16 +67,11 @@ resource "azurerm_cosmosdb_mongo_collection" "locations" {
   account_name        = azurerm_cosmosdb_account.db.name
   database_name       = azurerm_cosmosdb_mongo_database.mongodb.name
 
-  default_ttl_seconds = "777"
-  shard_key           = "uniqueKey"
+  default_ttl_seconds = "3600"
+  shard_key           = "lon"
 
   index {
-    keys   = ["nonUniqueKey"]
-    unique = false
-  }
-
-  index {
-    keys   = ["uniqueKey"]
+    keys   = ["lon"]
     unique = true
   }
 }
