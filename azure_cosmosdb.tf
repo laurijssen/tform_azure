@@ -71,7 +71,7 @@ resource "azurerm_cosmosdb_mongo_collection" "locations" {
   shard_key           = "lon"
 
   index {
-    keys   = ["lon"]
+    keys   = ["_id"]
     unique = true
   }
 }

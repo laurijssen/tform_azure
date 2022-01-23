@@ -18,6 +18,16 @@ variable "ssh-destination-address" {
   default = "*"
 }
 
+variable "web-source-address" {
+  type    = string
+  default = "*"
+}
+
+variable "web-destination-address" {
+  type    = string
+  default = "*"
+}
+
 variable "failover_location" {
   type    = string
   default = "swedencentral"
