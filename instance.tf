@@ -36,43 +36,43 @@ resource "azurerm_virtual_machine" "geofriends-vm-1" {
   }
 }
 
-# resource "azurerm_virtual_machine" "geofriends-vm-2" {
-#   name                  = "${var.prefix}-vm-2"
-#   location              = var.location
-#   resource_group_name   = azurerm_resource_group.geofriends.name
-#   network_interface_ids = [azurerm_network_interface.geofriends-instance-2.id]
-#   vm_size               = "Standard_A1_v2"
+resource "azurerm_virtual_machine" "geofriends-vm-2" {
+  name                  = "${var.prefix}-vm-2"
+  location              = var.location
+  resource_group_name   = azurerm_resource_group.geofriends.name
+  network_interface_ids = [azurerm_network_interface.geofriends-instance-2.id]
+  vm_size               = "Standard_A1_v2"
 
-#   delete_os_disk_on_termination    = true
-#   delete_data_disks_on_termination = true
+  delete_os_disk_on_termination    = true
+  delete_data_disks_on_termination = true
 
-#   storage_image_reference {
-#     publisher = "Canonical"
-#     offer     = "UbuntuServer"
-#     sku       = "18.04-LTS"
-#     version   = "latest"
-#   }
+  storage_image_reference {
+    publisher = "Canonical"
+    offer     = "UbuntuServer"
+    sku       = "18.04-LTS"
+    version   = "latest"
+  }
 
-#   storage_os_disk {
-#     name              = "myosdisk2"
-#     caching           = "ReadWrite"
-#     create_option     = "FromImage"
-#     managed_disk_type = "Standard_LRS"
-#   }
+  storage_os_disk {
+    name              = "myosdisk2"
+    caching           = "ReadWrite"
+    create_option     = "FromImage"
+    managed_disk_type = "Standard_LRS"
+  }
 
-#   os_profile {
-#     computer_name  = "geofriends-2"
-#     admin_username = "laurijssen"
-#   }
+  os_profile {
+    computer_name  = "geofriends-2"
+    admin_username = "laurijssen"
+  }
 
-#   os_profile_linux_config {
-#     disable_password_authentication = true
-#     ssh_keys {
-#       key_data = file("mykey.pub")
-#       path     = "/home/laurijssen/.ssh/authorized_keys"
-#     }
-#   }
-# }
+  os_profile_linux_config {
+    disable_password_authentication = true
+    ssh_keys {
+      key_data = file("mykey.pub")
+      path     = "/home/laurijssen/.ssh/authorized_keys"
+    }
+  }
+}
 
 resource "azurerm_dns_zone" "dns_zone" {
   name                = "geocachex.com"
@@ -120,18 +120,18 @@ resource "azurerm_network_interface" "geofriends-instance" {
   }
 }
 
-# resource "azurerm_network_interface" "geofriends-instance-2" {
-#   name                = "${var.prefix}-instance2"
-#   location            = var.location
-#   resource_group_name = azurerm_resource_group.geofriends.name
+resource "azurerm_network_interface" "geofriends-instance-2" {
+  name                = "${var.prefix}-instance2"
+  location            = var.location
+  resource_group_name = azurerm_resource_group.geofriends.name
 
-#   ip_configuration {
-#     name                          = "instance2"
-#     subnet_id                     = azurerm_subnet.subnet-internal-1.id
-#     private_ip_address_allocation = "Dynamic"
-#     public_ip_address_id          = azurerm_public_ip.geofriends-instance-2.id
-#   }
-# }
+  ip_configuration {
+    name                          = "instance2"
+    subnet_id                     = azurerm_subnet.subnet-internal-1.id
+    private_ip_address_allocation = "Dynamic"
+  }
+}
+
 resource "azurerm_public_ip" "geofriends-instance-1" {
   name                = "instance1-public-ip"
   location            = var.location
