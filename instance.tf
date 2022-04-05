@@ -25,6 +25,7 @@ resource "azurerm_virtual_machine" "geofriends-vm-1" {
   os_profile {
     computer_name  = "geofriends-1"
     admin_username = "laurijssen"
+    custom_data    = data.template_file.init_script.rendered
   }
 
   os_profile_linux_config {
