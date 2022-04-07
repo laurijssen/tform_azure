@@ -1,10 +1,11 @@
 #!/bin/bash
 
 MY_HOME="/home/laurijssen"
-export DEBIAN_FRONTEND=noninteractive
 
-apt update
-apt-get install \
+# install docker
+
+sudo apt-get update
+sudo apt-get install \
     ca-certificates \
     curl \
     gnupg \
@@ -14,12 +15,16 @@ echo \
 "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
-apt-get update
-apt-get install docker-ce docker-ce-cli containerd.io
+sudo apt-get update
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io
 
-usermod -aG docker laurijssen
+sudo systemctl enable docker
+sudo systemctl daemon-reload
+sudo systemctl start docker
+
+sudo usermod -aG docker laurijssen
 
 # install kind
 curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.12.0/kind-linux-amd64
 chmod +x ./kind
-sudo mv ./kind /some-dir-in-your-PATH/kind
+sudo mv ./kind /usr/local/bin/kind
