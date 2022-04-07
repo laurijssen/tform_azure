@@ -18,7 +18,7 @@ resource "azurerm_cosmosdb_account" "db" {
   is_virtual_network_filter_enabled = true
 
   virtual_network_rule {
-    id = azurerm_subnet.subnet-internal-1.id
+    id = azurerm_subnet.subnet-internal.id
     #ignore_missing_vnet_service_endpoint = true
   }
 

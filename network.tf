@@ -5,8 +5,8 @@ resource "azurerm_virtual_network" "vn" {
   address_space       = ["10.0.0.0/16"]
 }
 
-resource "azurerm_subnet" "subnet-internal-1" {
-  name                 = "${var.prefix}-internal-1"
+resource "azurerm_subnet" "subnet-internal" {
+  name                 = "${var.prefix}-internal"
   resource_group_name  = azurerm_resource_group.geofriends.name
   virtual_network_name = azurerm_virtual_network.vn.name
   address_prefixes     = ["10.0.0.0/24"]
@@ -18,6 +18,7 @@ resource "azurerm_network_security_group" "allow-ssh" {
   location            = var.location
   resource_group_name = azurerm_resource_group.geofriends.name
 
+  
   security_rule {
     name                       = "SSH"
     priority                   = 1001
@@ -61,6 +62,6 @@ resource "azurerm_network_security_group" "internal-facing" {
 }
 
 resource "azurerm_subnet_network_security_group_association" "sec-group-association-1" {
-  subnet_id                 = azurerm_subnet.subnet-internal-1.id
+  subnet_id                 = azurerm_subnet.subnet-internal.id
   network_security_group_id = azurerm_network_security_group.allow-ssh.id
 }
