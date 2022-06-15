@@ -3,7 +3,8 @@ resource "azurerm_virtual_machine" "geofriends-vm-1" {
   location              = var.location
   resource_group_name   = azurerm_resource_group.geofriends.name
   network_interface_ids = [azurerm_network_interface.geofriends-instance.id]
-  vm_size               = "Standard_A1_v2"
+  #vm_size               = "Standard_B4ms"
+  vm_size               = "Standard_A1_v2"  
 
   delete_os_disk_on_termination    = true
   delete_data_disks_on_termination = true
@@ -155,7 +156,7 @@ resource "azurerm_network_interface" "geofriends-instance" {
     name                          = "instance1"
     subnet_id                     = azurerm_subnet.subnet-internal.id
     private_ip_address_allocation = "Dynamic"
-    public_ip_address_id          = azurerm_public_ip.geofriends-instance-1.id
+    #public_ip_address_id          = azurerm_public_ip.geofriends-instance-1.id
   }
 }
 
@@ -188,6 +189,17 @@ resource "azurerm_public_ip" "geofriends-instance-1" {
   location            = var.location
   resource_group_name = azurerm_resource_group.geofriends.name
   allocation_method   = "Dynamic"
+}
+
+resource "azurerm_lb" "balancer" {
+  name                = "KindLoadBalancer"
+  location            = var.location
+  resource_group_name = azurerm_resource_group.geofriends.name
+
+  frontend_ip_configuration {
+    name                 = "PublicIPAddress"
+    public_ip_address_id = azurerm_public_ip.geofriends-instance-1.id
+  }
 }
 
 resource "azurerm_application_security_group" "geo-appsec-group" {
