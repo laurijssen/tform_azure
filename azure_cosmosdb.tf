@@ -1,10 +1,10 @@
-# resource "random_string" "random-name" {
-#   length  = 5
-#   upper   = false
-#   lower   = true
-#   number  = true
-#   special = false
-# }
+resource "random_string" "random-name" {
+  length  = 5
+  upper   = false
+  lower   = true
+  number  = true
+  special = false
+}
 
 # resource "azurerm_cosmosdb_account" "db" {
 #   name                = "geofriends-db-${random_string.random-name.result}"
@@ -27,7 +27,7 @@
 #   }
 
 #   capabilities {
-#     name = "MongoDBv3.4"
+#     name = "MongoDBv3.6"
 #   }
 
 #   consistency_policy {

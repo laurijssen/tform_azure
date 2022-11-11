@@ -33,3 +33,9 @@ curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stabl
 sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 
 sudo apt-get install -y nginx
+
+wget -qO - https://www.mongodb.org/static/pgp/server-3.6.asc | sudo apt-key add -
+echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.6 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.4.list
+
+sudo apt-get update
+sudo apt-get install mongodb-org-shell
