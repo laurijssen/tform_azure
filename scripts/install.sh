@@ -32,6 +32,17 @@ sudo mv ./kind /usr/local/bin/kind
 curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 
+cat <<EOF > /home/laurijssen/kind.yaml
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+- role: control-plane
+- role: worker
+- role: worker
+EOF
+
+#sudo kind create cluster --config=/home/laurijssen/kind.yaml
+
 sudo apt-get install -y nginx
 
 sudo git -C /var/www/html clone https://github.com/nsevindi87/multipage-website
