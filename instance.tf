@@ -115,7 +115,7 @@ resource "azurerm_virtual_machine" "geofriends-vm-3" {
 }
 
 resource "azurerm_dns_zone" "dns_zone" {
-  name                = "geocachex.com"
+  name                = "xformerlyknownastwitter.com"
   resource_group_name = azurerm_resource_group.geofriends.name
 
   tags = {
