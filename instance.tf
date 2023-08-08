@@ -119,7 +119,7 @@ resource "azurerm_dns_zone" "dns_zone" {
   resource_group_name = azurerm_resource_group.geofriends.name
 
   tags = {
-    Site = "geocachex.com"
+    Site = "xformerlyknownastwitter.com"
   }
 }
 
